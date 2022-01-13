@@ -65,35 +65,19 @@ class Wall:
     # Adds an object    
     def add(self, x):    
         # A compléter en remplaçant pass par votre code
-        for x in self.objects:
-            x.draw()        
+        pass    
                     
     # Draws the faces
     def draw(self):
         # A compléter en remplaçant pass par votre code
-        self.vertices = [ 
-                self.parameters['position'], 
-                [self.parameters['position'][0],self.parameters['position'][1], self.parameters['position'][2]+self.parameters['height']], 
-                [self.parameters['position'][0]+self.parameters['width'], self.parameters['position'][1], self.parameters['position'][2]+self.parameters['height']],
-                [self.parameters['position'][0]+self.parameters['width'], self.parameters['position'][1],self.parameters['position'][2]],
-                [self.parameters['position'][0],self.parameters['position'][1]+self.parameters['thickness'], self.parameters['position'][2]],
-                [self.parameters['position'][0]+self.parameters['width'],self.parameters['position'][1]+self.parameters['thickness'],self.parameters['position'][2]],
-                [self.parameters['position'][0]+self.parameters['width'], self.parameters['position'][1]+self.parameters['thickness'], self.parameters['position'][2]+self.parameters['height']],
-                [self.parameters['position'][0],self.parameters['position'][1]+self.parameters['thickness'], self.parameters['position'][2]+self.parameters['height']],
-
-                # Définir ici les sommets
-                ]
+        gl.glPushMatrix()
+        gl.glRotateF(-self.parameters['orientation'],0,0,1)
+        self.parentSection.drawEdges()
+        for i in self.objects:
+            i.draw()
+        gl.glPopMatrix()
+            
         
-        for i in range(len(self.vertices)-1):
-            for j in range(i):
-                a=0.4
-                gl.glPushMatrix()
-                gl.glPolygonMode(gl.GL_FRONT_AND_BACK,gl.GL_LINE)
-                gl.glBegin(gl.GL_QUADS)# Tracé d’une ligne
-                gl.glColor3fv([0.5*a, 0.5*a, 0.5*a]) # Couleur gris moyen
-                gl.glVertex3fv(self.vertices[j])
-                gl.glEnd()
-                gl.glPopMatrix()
                 
                 
         
