@@ -87,9 +87,23 @@ class Section:
     # Draws the edges
     def drawEdges(self):
         # A compléter en remplaçant pass par votre code
-        for i in range(len(self.vertices)):
-            gl.glPolygonMode(gl.GL_FRONT_AND_BACK,gl.GL_LINE)
-            gl.glPushMatrix()
+        for i in range(len(self.vertices)-1):
+            for j in range(i):
+                gl.glPushMatrix()
+                gl.glPolygonMode(gl.GL_FRONT_AND_BACK,gl.GL_LINE)
+                gl.glBegin(gl.GL_QUADS)# Tracé d’une ligne
+                gl.glColor3fv([1, 1, 0]) # Couleur gris moyen
+                gl.glVertex3fv(self.vertices[j])
+                gl.glEnd()
+                gl.glPopMatrix()
+            
+            
+            
+
+
+            
+
+            
 
             
 
@@ -97,9 +111,12 @@ class Section:
                     
     # Draws the faces
     def draw(self):
+        if self.parameters['edges']==True:
+            self.drawEdges()
+        
         # A compléter en remplaçant pass par votre code
-        gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL) # on trace les faces : GL_FILL
         gl.glPushMatrix()
+        gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL) # on trace les faces : GL_FILL
         gl.glBegin(gl.GL_QUADS) # Tracé d’un quadrilatère
         gl.glColor3fv([0.5, 0.5, 0.5]) # Couleur gris moyen
         gl.glVertex3fv([0, 0, 0])
@@ -108,15 +125,16 @@ class Section:
         gl.glVertex3fv([0, 0, self.parameters['height']])
         gl.glEnd()
         gl.glPopMatrix()
-        
+    
         gl.glPushMatrix()
+        gl.glPolygonMode(gl.GL_FRONT_AND_BACK, gl.GL_FILL) # on trace les faces : GL_FILL
         gl.glBegin(gl.GL_QUADS) # Tracé d’un quadrilatère
         gl.glColor3fv([0.5, 0.5, 0.5]) # Couleur gris moyen
         gl.glVertex3fv([0, 0, 0])
         gl.glVertex3fv([0, self.parameters['thickness'], 0])
         gl.glVertex3fv([0, 0, self.parameters['height']])
         gl.glVertex3fv([0, self.parameters['thickness'], self.parameters['height']])
-        gl.glEnd()
+        gl.glEnd(    )
         gl.glPopMatrix()        
         
         
